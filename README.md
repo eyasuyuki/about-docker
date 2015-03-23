@@ -1,13 +1,22 @@
 # About Docker
 
-- http://docker.com/
+タイムインターメディア技術部会資料
+
+# Dockerとは
+
 - コンテナ仮想化技術
+- http://docker.com/
+
+# 動作環境
+
+- Kernel 3.8以上の64bit Linux
+ - ex. OS XではVirtualBox用のLinuxイメージを利用
 
 # ツール
 
-- docker-machine
-- docker-compose
-- docker-swarm
+- docker-machine リモート管理
+- docker-compose 複数コンテナのビルドや起動
+- docker-swarm クラスタリング
 
 # メリット
 
@@ -89,4 +98,3 @@
     cd docker-kahua
 	docker-compose up -d
 	curl -i http://$(docker-machine ip <vmname>):8888/
-
