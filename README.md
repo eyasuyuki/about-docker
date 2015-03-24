@@ -37,9 +37,11 @@
 
 ## インストール
 
-    brew install docker.io
-    brew tap homebrew/devel-only
-    brew install --devel docker-machine
+    brew install docker
+    brew install docker-compose
+    brew install caskroom/cask/brew-cask
+    brew cask install virtualbox
+    brew cask install docker-machine
 
 ## VirtualBox image初期化
 
@@ -61,19 +63,48 @@
 
 	docker-machine stop <vmname>
 
+## Dockerコマンド
+
+    docker ps
+    docker images
+	docker inspect <imageid>
+
+## docker-composeコマンド
+
+    docker-compose ls
+    docker-compose up -d
+	docker-compose stop
+
 ##　golang-fastcgi-nginx
 
 - nginxのfastcgiでgoを動かす
  - Goコンテナ
  - nginxコンテナ
 - コンテナ間のlink
- - docker-compose.yml
+
+docker-compose.yml
+
+    nginx:
+      build: nginx
+      links:
+       - fcgihost
+      ports:
+       - "80:80"
+      expose:
+       - "80"
+
+    fcgihost:
+      build: golang-docker/hello
+      ports:
+       - "9001:9001"
+      expose:
+       - "9001"
 
 ### cloneとbuild
 
     git clone git@github.com:eyasuyuki/golang-fastcgi-nginx.git
     cd golang-fastcgi-nginx
-	git clone git@github.com:eyasuyuki/golang-docker.git
+    git clone git@github.com:eyasuyuki/golang-docker.git
     git clone git@github.com:eyasuyuki/nginx.git
     docker-compose up -d
 
@@ -84,7 +115,7 @@
 ### コンテナへのログイン
 
     docker-machine ssh <vmname>
-	docker run --rm -v /usr/local/bin:/target jpetazzo/nsenter
+    docker run --rm -v /usr/local/bin:/target jpetazzo/nsenter
     sudo docker-enter `docker ps | grep "\"nginx\"" | cut -d " " -f 1`
 
 ### コンテナ間のlinkの確認
@@ -96,5 +127,5 @@
 
     git clone git@github.com:eyasuyuki/docker-kahua.git
     cd docker-kahua
-	docker-compose up -d
-	curl -i http://$(docker-machine ip <vmname>):8888/
+    docker-compose up -d
+    curl -i http://$(docker-machine ip <vmname>):8888/
