@@ -75,7 +75,7 @@
     docker-compose up -d
 	docker-compose stop
 
-##　golang-fastcgi-nginx
+## golang-fastcgi-nginx
 
 - nginxのfastcgiでgoを動かす
  - Goコンテナ
