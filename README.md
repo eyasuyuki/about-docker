@@ -82,19 +82,21 @@
  - nginxコンテナ
 - コンテナ間のlink
 
+### 概念図
+
     +-----------------+    +----------------+
     | nginx container |    |  go container  |
     |    172.0.0.5:80 | -- | 172.0.0.3:9991 |
     +-----------------+    +----------------+
     +---------------------------------------+
-	|                Docker                 |
-	+---------------------------------------+
-	+---------------------------------------+
-	|             Linux Kernel              |
-	+---------------------------------------+
-	+---------------------------------------+
-	|               Hardware                |
-	+---------------------------------------+
+    |                Docker                 |
+    +---------------------------------------+
+    +---------------------------------------+
+    |             Linux Kernel              |
+    +---------------------------------------+
+    +---------------------------------------+
+    |               Hardware                |
+    +---------------------------------------+
 
 ### docker-compose.yml
 
@@ -124,25 +126,25 @@
 #### hello.go
 
     package main
-    
+
     import (
         "fmt"
         "net"
         "net/http"
         "net/http/fcgi"
-    
+
         "github.com/GoogleCloudPlatform/golang-docker/hello/vendor/internal"
         "github.com/gorilla/mux"
     )
-    
+
     func handler(w http.ResponseWriter, r *http.Request) {
         http.Redirect(w, r, fmt.Sprintf("/%s", internal.Secret), http.StatusFound)
     }
-    
+
     func hello(w http.ResponseWriter, r *http.Request) {
         fmt.Fprintf(w, "<html><body>Hello, %s! こんにちは、世界!</body></html>", mux.Vars(r)["who"])
     }
-    
+
     func main() {
         l, err := net.Listen("tcp", ":9001")
         if err != nil {
@@ -151,7 +153,7 @@
         r := mux.NewRouter().StrictSlash(true)
         r.HandleFunc("/", handler).Methods("GET")
         r.HandleFunc("/{who}", hello).Methods("GET")
-    
+
         fcgi.Serve(l, r)
     }
 
