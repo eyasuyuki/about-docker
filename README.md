@@ -39,7 +39,7 @@
 
     brew install caskroom/cask/brew-cask
     brew cask install virtualbox
-    brew install dockerl docker-machine docker-compose
+    brew install docker docker-machine docker-compose
 
 ## VirtualBox image初期化
 
