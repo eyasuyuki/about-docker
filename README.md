@@ -37,11 +37,9 @@
 
 ## インストール
 
-    brew install docker
-    brew install docker-compose
     brew install caskroom/cask/brew-cask
     brew cask install virtualbox
-    brew cask install docker-machine
+    brew install dockerl docker-machine docker-compose
 
 ## VirtualBox image初期化
 
